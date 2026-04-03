@@ -1,2 +1,2 @@
-# controle-estoque-pandas
-Sistema de controle de estoque com automação de entradas, saídas e geração de relatórios em Excel utilizando Pandas.
+# Sistema de Controle de Estoque em Python
+Aplicação simples para gerenciamento de produtos, entrada/saída e relatórios utilizando Pandas.
