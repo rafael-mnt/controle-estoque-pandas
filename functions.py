@@ -1,34 +1,27 @@
 import pandas as pd
 
-def cadastrar_produto(df_produtos):
-    
+def valor_existe(coluna, valor):
+    return (coluna == valor).any()
+
+def pedir_valor_unico(coluna, texto):
+
     while True:
-        c_id = input('Código ID: ')
-        if (df_produtos['ID'] == c_id).any():
-            print('Código já existente, utilize outro')
+        valor = input(texto)
+        if valor_existe(coluna, valor):
+            print('Entrada já existente, utilize outra')
         else:
-            break
-        
-    while True:
-        nome = input('Nome do Produto: ')
-        if (df_produtos['PRODUTO'] == nome).any():
-            print('Nome já existente, utilize outro')
-        else:
-            break
-    
+            return valor
+
+def pedir_tipo_variavel(tipo, texto):
+
     while True:
         try:
-            preco = float(input('Valor: '))
-            break
+            valor = tipo(input(texto))
+            return valor
         except ValueError:
             print('Entrada inválida, tente novamente')
-    
-    while True:
-        try:
-            quant = int(input('Quantidade em Estoque:'))
-            break
-        except ValueError:
-            print('Entrada inválida, tente novamente')
+
+def cadastrar_produto(c_id, nome, preco, quant, df_produtos):
     
     novo = pd.DataFrame({
         'ID': [c_id],
@@ -60,48 +53,24 @@ def excluir_produto(df_produtos):
     
     return df_produtos
 
-def registrar_entrada(df_produtos):
-    
-    filtro = input('\nInforme código ID do produto: ')
-    
-    if (df_produtos["ID"] == filtro).any():
+def entrada_saida_estoque(opcao, c_id, quant, df_produtos):
+
+    if (df_produtos["ID"] == c_id).any():
         
-        while True:
-            try:
-                entrada = int(input('Informe o número de entrada de estoque:'))
-                break
-            except ValueError:
-                print('Valor inválida, tente novamente!')
+        if opcao == 'entrada':
+            entrada = int(df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'].iloc[0]) + int(quant)
+            df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'] = entrada
+            return df_produtos
         
-        entrada = int(df_produtos.loc[df_produtos['ID'] == filtro, 'QUANTIDADE']) + int(entrada)
-        df_produtos.loc[df_produtos['ID'] == filtro, 'QUANTIDADE'] = entrada
-        
-    else:
-        print(f'Código ID {filtro} não existente')
-            
-    return df_produtos
-     
-def registrar_saida(df_produtos):
-    
-    filtro = input('\nInforme código ID do produto: ')
-    
-    if (df_produtos["ID"] == filtro).any():
-        
-        while True:
-            try:
-                saida = int(input('Informe o número de saida de estoque:'))
-                break
-            except ValueError:
-                print('Valor inválida, tente novamente!')
-        
-        saida = int(df_produtos.loc[df_produtos['ID'] == filtro, 'QUANTIDADE']) - int(saida)
-        df_produtos.loc[df_produtos['ID'] == filtro, 'QUANTIDADE'] = saida
+        elif opcao == 'saida':
+            saida = int(df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'].iloc[0]) - int(quant)
+            if saida < 0:
+                print('Não é possível quantidade negativa em estoque, operação cancelada')
+                return df_produtos
+            else:
+                df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'] = saida
+                return df_produtos
         
     else:
-        print(f'Código ID {filtro} não existente')
-            
-    return df_produtos
-    
-    
-def registrar_saída(df_produtos):
-    return df_produtos
+        print(f'Código ID {c_id} não existente')
+        return df_produtos
