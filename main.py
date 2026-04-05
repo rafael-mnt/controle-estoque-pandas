@@ -1,5 +1,6 @@
 import pandas as pd
-from functions import cadastrar_produto, excluir_produto, registrar_entrada, registrar_saida
+from functions import cadastrar_produto, excluir_produto, entrada_saida_estoque, pedir_valor_unico, pedir_tipo_variavel
+
 df_produtos = pd.DataFrame({
     'ID': ['N1','N4','M3','C2'],
     'PRODUTO': ['Notebook Asus','Notebook Positivo', 'Celular Xiaomi', 'Carregador Samsung'],
@@ -18,19 +19,39 @@ while True:
     print('0 - Sair\n')
     
     opcao = input('Selecione a sua opção: ')
-    
+
     if opcao == '0':
         break
+    
     elif opcao == '1':
-        df_produtos = cadastrar_produto(df_produtos)
+        
+        c_id = pedir_valor_unico(df_produtos['ID'], 'Código ID:')
+        nome = pedir_valor_unico(df_produtos['PRODUTO'], 'Produto:')
+        preco = pedir_tipo_variavel(float, 'Valor:')
+        quant = pedir_tipo_variavel(int, 'Quantidade:')
+        
+        df_produtos = cadastrar_produto(c_id, nome, preco, quant, df_produtos)
+        
     elif opcao == '2':
         df_produtos = excluir_produto(df_produtos)
+        
     elif opcao == '3':
-        df_produtos = registrar_entrada(df_produtos)
+
+        c_id = input('\nInforme código ID do produto: ')
+        quant = pedir_tipo_variavel(int, 'Informe o número de entrada de estoque:')
+
+        df_produtos = entrada_saida_estoque('entrada', c_id, quant, df_produtos)
+        
     elif opcao == '4':
-        df_produtos = registrar_saida(df_produtos)
+
+        c_id = input('\nInforme código ID do produto: ')
+        quant = pedir_tipo_variavel(int, 'Informe o número de saída de estoque:')
+        
+        df_produtos = entrada_saida_estoque('saida', c_id, quant, df_produtos)
+        
     elif opcao == '5':
         print(f'\n{df_produtos}\n')
+        
     else:
         print('Entrada inválida, utilize números de 0 a 5!')
         
