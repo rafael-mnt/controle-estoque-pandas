@@ -1,4 +1,16 @@
-import pandas as pd
+import random
+import string
+
+def gerar_id():
+    letras = ''.join(random.choices(string.ascii_uppercase, k=3))
+    numeros = ''.join(random.choices(string.digits, k=4))
+    return letras + numeros
+
+def gerar_id_unico(df_produtos):
+    while True:
+        novo_id = gerar_id()
+        if novo_id not in df_produtos.index:
+            return novo_id
 
 def valor_existe(coluna, valor):
     return (coluna == valor).any()
@@ -21,56 +33,54 @@ def pedir_tipo_variavel(tipo, texto):
         except ValueError:
             print('Entrada inválida, tente novamente')
 
-def cadastrar_produto(c_id, nome, preco, quant, df_produtos):
+def cadastrar_produto(nome, preco, quant, df_produtos):
     
-    novo = pd.DataFrame({
-        'ID': [c_id],
-        'PRODUTO': [nome],
-        'PREÇO': [preco],
-        'QUANTIDADE': [quant]
-    })
-    
-    df_produtos = pd.concat([df_produtos, novo], ignore_index=True)
+    novo_id = gerar_id_unico(df_produtos)
+
+    df_produtos.loc[novo_id] = {
+        'PRODUTO': nome,
+        'PREÇO': preco,
+        'QUANTIDADE': quant
+    }
     
     return df_produtos
 
-def excluir_produto(df_produtos):
+def excluir_produto(c_id, df_produtos):
     
-    filtro = input('\nInforme código ID do produto: ')
-    
-    if (df_produtos["ID"] == filtro).any():
+    if c_id not in df_produtos.index:
+        print(f'Código ID {c_id} não existente')
+        return df_produtos
         
-        conf = input(f"Deseja deletar produto {filtro}? \ns/n")
-        if conf == 's':
-            df_produtos = df_produtos.drop(df_produtos[filtro].index)
-        elif conf == 'n':
-            print('Operação cancelada')
-        else:
-            print('Operação inválida')
-            
+    conf = input(f"Deseja deletar produto {c_id}? \ns/n")
+    if conf == 's':
+        df_produtos = df_produtos.drop(c_id)
+        print(f'Produto {c_id} deletado com sucesso')
+        return df_produtos
+    
+    elif conf == 'n':
+        print('Operação cancelada')
+        return df_produtos
+    
     else:
-        print(f'Código ID {filtro} não existente')
+        print('Operação inválida')
     
     return df_produtos
 
 def entrada_saida_estoque(opcao, c_id, quant, df_produtos):
 
-    if (df_produtos["ID"] == c_id).any():
-        
-        if opcao == 'entrada':
-            entrada = int(df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'].iloc[0]) + int(quant)
-            df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'] = entrada
-            return df_produtos
-        
-        elif opcao == 'saida':
-            saida = int(df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'].iloc[0]) - int(quant)
-            if saida < 0:
-                print('Não é possível quantidade negativa em estoque, operação cancelada')
-                return df_produtos
-            else:
-                df_produtos.loc[df_produtos['ID'] == c_id, 'QUANTIDADE'] = saida
-                return df_produtos
-        
-    else:
+    if c_id not in df_produtos.index:
         print(f'Código ID {c_id} não existente')
         return df_produtos
+        
+    if opcao == 'entrada':
+        df_produtos.loc[c_id, 'QUANTIDADE'] += quant
+    
+    elif opcao == 'saida':
+        
+        if df_produtos.loc[c_id, 'QUANTIDADE'] - quant < 0:
+            print('Não é possível quantidade negativa em estoque, operação cancelada')
+            return df_produtos  
+        
+        df_produtos.loc[c_id, 'QUANTIDADE'] -= quant
+
+    return df_produtos
