@@ -2,12 +2,14 @@ import pandas as pd
 from functions import cadastrar_produto, excluir_produto, entrada_saida_estoque, pedir_valor_unico, pedir_tipo_variavel
 
 df_produtos = pd.DataFrame({
-    'ID': ['N1','N4','M3','C2'],
+    'ID': ['NJQ1627','NMT4639','MPV3588','CBN2845'],
     'PRODUTO': ['Notebook Asus','Notebook Positivo', 'Celular Xiaomi', 'Carregador Samsung'],
     'PREÇO': [3500.00, 1500.00, 1950.00, 35.00],
     'QUANTIDADE': [32, 55, 26, 14]
 })
-    
+
+df_produtos = df_produtos.set_index('ID')
+
 while True:
     
     print('\nMenu Inicial:')
@@ -25,27 +27,28 @@ while True:
     
     elif opcao == '1':
         
-        c_id = pedir_valor_unico(df_produtos['ID'], 'Código ID:')
-        nome = pedir_valor_unico(df_produtos['PRODUTO'], 'Produto:')
-        preco = pedir_tipo_variavel(float, 'Valor:')
-        quant = pedir_tipo_variavel(int, 'Quantidade:')
+        nome = pedir_valor_unico(df_produtos['PRODUTO'], 'Produto: ')
+        preco = pedir_tipo_variavel(float, 'Valor: ')
+        quant = pedir_tipo_variavel(int, 'Quantidade: ')
         
-        df_produtos = cadastrar_produto(c_id, nome, preco, quant, df_produtos)
+        df_produtos = cadastrar_produto(nome, preco, quant, df_produtos)
         
     elif opcao == '2':
-        df_produtos = excluir_produto(df_produtos)
+
+        c_id = input('Código ID: ')
+        df_produtos = excluir_produto(c_id, df_produtos)
         
     elif opcao == '3':
 
-        c_id = input('\nInforme código ID do produto: ')
-        quant = pedir_tipo_variavel(int, 'Informe o número de entrada de estoque:')
+        c_id = input('Código ID: ')
+        quant = pedir_tipo_variavel(int, 'Informe o número de entrada de estoque: ')
 
         df_produtos = entrada_saida_estoque('entrada', c_id, quant, df_produtos)
         
     elif opcao == '4':
 
-        c_id = input('\nInforme código ID do produto: ')
-        quant = pedir_tipo_variavel(int, 'Informe o número de saída de estoque:')
+        c_id = input('Código ID: ')
+        quant = pedir_tipo_variavel(int, 'Informe o número de saída de estoque: ')
         
         df_produtos = entrada_saida_estoque('saida', c_id, quant, df_produtos)
         
