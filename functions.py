@@ -1,72 +1,45 @@
-import random
-import string
-
-class Produto:
-    def __init__(self, id, nome, valor, quant):
-        self.id = id
-        self.nome = nome
-        self.valor = valor
-        self.quant = quant
-
-class Estoque:
-    def __init__(self):
-        self.produtos = {}
-
-
-    # Gerar um ID aleatório com 3 letras maiúsculas e 4 dígitos, garantindo que seja único no sistema
-    def gerar_id():
-
-        letras = ''.join(random.choices(string.ascii_uppercase, k=3))
-        numeros = ''.join(random.choices(string.digits, k=4))
-        return letras + numeros
-
-
-    # Gerar um ID único, verificando se o ID gerado já existe no sistema, e caso exista, gerar outro ID até encontrar um ID único
-    def gerar_id_unico(self):
-
-        while True:
-
-            novo_id = self.gerar_id()
-            if novo_id not in self.produtos:
-                return novo_id
-            
-
-    # Função que recebe os dados do produto, gera um ID único e cadastra o produto no sistema, retornando o ID do produto cadastrado
-    def cadastrar_produto(self, nome, preco, quant):
-
-        novo_id = self.gerar_id_unico()
-        produto = Produto(novo_id, nome, preco, quant)
-        self.produtos[novo_id] = produto
-        return novo_id
+# Responsável por conferir se há duplicidade do input inserido no banco de dados 
+def conferir_duplicidade(cursor, tabela, coluna, resposta):
+    query = f"""
+            SELECT * FROM {tabela}
+            WHERE {coluna} = %s;
+            """
     
+    cursor.execute(query, (resposta,))
+    resultado = cursor.fetchone()
+    return resultado is None
 
-    # Função que verifica pelo ID fornecido pelo usuário se o produto está cadastrado e deleta ele do sistema caso esteja
-    def excluir_produto(self, id_produto):
-        if id_produto not in self.produtos:
-            return False
-        del self.produtos[id_produto]
-        return True
-
-
-    def entrada_estoque(self, id_produto, quantidade):
-        if id_produto not in self.produtos or quantidade <= 0:
-            return False
-
-        self.produtos[id_produto].quantidade += quantidade
-        return True
+# Responsável por conferir se há registro do input inserido no banco de dados
+def conferir_registro(cursor, tabela, resposta):
+    query = f"""
+            SELECT id FROM {tabela} WHERE nome = %s;
+            """
     
+    cursor.execute(query, (resposta,))
+    resultado = cursor.fetchone()
+    return resultado
 
-    def saida_estoque(self, id_produto, quantidade):
-        if id_produto not in self.produtos or quantidade <= 0:
-            return False
+# Responsável por validar um input não duplicado no banco de dados
+def validar_duplicidade(entrada, cursor, tabela, coluna):
+    while True:
+        resposta = input(f"{entrada}: ")
+        if conferir_duplicidade(cursor, tabela, coluna, resposta):
+            return resposta
+        print(f'# Aviso: Duplicidade Inválida!\n{entrada} {resposta} já consta em cadastro. Tente novamente!')
 
-        if self.produtos[id_produto].quantidade < quantidade:
-            return False
+# Responsável por extrair o primary key da linha do dado fornecido
+def extrair_id(entrada, cursor, tabela):
+    while True:
+        resposta = input(f"{entrada}: ").upper()
+        id = conferir_registro(cursor, tabela, resposta)
+        if id is not None:
+            return id[0]
+        print(f'# Aviso: Erro de Pesquisa!\n{entrada} {resposta} não consta em cadastro. Tente novamente!\n')
 
-        self.produtos[id_produto].quantidade -= quantidade
-        return True
-
-
-    def listar_produtos(self):
-        return self.produtos
-    
+# Responsável por validar a formatação int ou float do input
+def validar_atributo(texto, atributo):
+    while True:
+        try:
+            return atributo(input(texto))
+        except ValueError:
+            print(f"# Aviso: Erro de atributo!\nEntrada precisa ser do atributo {atributo}. Tente novamente!")
