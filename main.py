@@ -1,8 +1,12 @@
+from database import conectar
 from categoria import opcao_categorias
 from produto import opcao_produtos
 from fornecedor import opcao_fornecedores
 from menu import criar_menu_opcoes
 from table import criar_tabela_opcoes
+
+conexao = conectar()
+cursor = conexao.cursor()
 
 while True:
     
@@ -26,6 +30,7 @@ while True:
     # SAIR DO SISTEMA
     elif opcao_principal == "0":
         print("Sistema Encerrado!")
+        conexao.close()
         break
 
     else:

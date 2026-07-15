@@ -1,7 +1,7 @@
 from database import conectar
 from menu import criar_menu_tabela, criar_menu_opcoes, criar_menu_id_unico
 from table import criar_tabela, criar_tabela_opcoes
-from functions import validar_duplicidade, extrair_id
+from functions import validar_duplicidade, extrair_id, validar_exclusao
 from crud import cadastrar_categoria, alterar_dados, excluir_dado
 
 conexao = conectar()
@@ -58,10 +58,14 @@ def opcao_categorias():
             menu_item = criar_menu_id_unico(cursor, tabela, id)
             print("\n== INFORMAÇÕES DA CATEGORIA ==")
             criar_tabela(menu_item, tabela)
-            excluir_dado(conexao, cursor, tabela, id)
+
+            if validar_exclusao(cursor, "categoria_id", id):
+                excluir_dado(conexao, cursor, tabela, id)
+            else:
+                print("# Aviso: Categoria cadastrada na tabela produto!\nAltere a categoria no produto cadastrado para excluí-la.")
 
         elif opcao_categoria == "0":
-            return conexao.close()
+            return
 
         else:
             print("Opção Inválida!")

@@ -120,7 +120,7 @@ def opcao_produtos():
             excluir_dado(conexao, cursor, tabela, id)
 
         elif opcao_produto == "0":
-            return conexao.close()
+            return
 
         else:
             print("Opção Inválida!")
