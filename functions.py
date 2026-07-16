@@ -55,8 +55,6 @@ def conferir_registros_id(cursor, coluna):
 def validar_exclusao(cursor, coluna, id):
     lista = conferir_registros_id(cursor, coluna)
     for item in lista:
-        print(item)
-        print(id)
         if item[0] == id:
             print(item)
             print
