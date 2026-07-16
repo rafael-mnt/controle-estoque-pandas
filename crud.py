@@ -8,13 +8,13 @@ def cadastrar_categoria(conexao, cursor, nome):
     conexao.commit()
     print("- Categoria cadastrada com sucesso! -")
     
-def cadastrar_produto(conexao, cursor, nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo, estoque_atual):
+def cadastrar_produto(conexao, cursor, nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo):
     query = """
-            INSERT INTO produto (nome, categoria_id, fornecedor_id, preco, estoque_atual, estoque_minimo)
+            INSERT INTO produto (nome, categoria_id, fornecedor_id, preco, estoque_minimo)
             VALUES (%s, %s, %s, %s, %s, %s);
             """
 
-    cursor.execute(query, (nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo, estoque_atual))
+    cursor.execute(query, (nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo))
     conexao.commit()
     print("- Produto cadastrado com sucesso! -")
 
@@ -66,7 +66,7 @@ def excluir_dado(conexao, cursor, tabela, id):
 
 def confirmar_exclusao():
     while True:
-        confirmacao = input("\nDeseja prosseguir com a exclusão?\n#! AVISO: ESSA AÇÃO NÃO PODERÁ SER DESFEITA APÓS CONFIMAÇÃO!\n S(Sim) / N(Não)\nConfirmação: ").lower()
+        confirmacao = input("\nDeseja prosseguir com a exclusão?\n# AVISO: ESSA AÇÃO NÃO PODERÁ SER DESFEITA APÓS CONFIMAÇÃO!\n S(Sim) / N(Não)\nConfirmação: ").lower()
         if confirmacao == "s":
             return True
         elif confirmacao == "n":

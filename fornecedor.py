@@ -24,7 +24,7 @@ def opcao_fornecedores():
             print("\n---- CADASTRAR FORNECEDOR ----")
             nome = validar_duplicidade("Nome do Fornecedor", cursor, tabela, "nome").upper()
             cpf_cnpj = validar_duplicidade("CPF/CNPJ", cursor, tabela, "cpf_cnpj")
-            telefone = input("Telefone:")
+            telefone = input("Telefone: ")
             email = input("E-mail: ").upper()
             cadastrar_fornecedor(conexao, cursor, nome, cpf_cnpj, telefone, email)
             print("Fornecedor Cadastrado!\n")
@@ -70,6 +70,9 @@ def opcao_fornecedores():
                 elif opcao == "0":
                     opcao_fornecedor = 0
                     break
+
+                else:
+                    print("Opção Inválida!")
         
         # MENU EXCLUIR FORNECEDOR
         elif opcao_fornecedor == "3":

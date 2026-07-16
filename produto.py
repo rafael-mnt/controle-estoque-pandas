@@ -22,21 +22,20 @@ def opcao_produtos():
         criar_tabela_opcoes(menu_produtos)
         opcao_produto = input("Escolha: ")
 
-        # MENU CADASTRAR PRODUTO
+        # OPÇÃO CADASTRAR PRODUTO
         if opcao_produto == "1":
 
-            print("\n---- ALTERAR PRODUTO ----")
+            print("\n---- CADASTRAR PRODUTO ----")
             nome = validar_duplicidade("Nome do Produto", cursor, tabela, 'nome').upper()
             categoria_id = extrair_id("Nome da Categoria", cursor, 'categoria')
             fornecedor_id = extrair_id("Nome do Fornecedor", cursor, 'fornecedor')
             preco = validar_atributo("Preço do Produto: ", float)
-            estoque_atual = validar_atributo("Estoque Atual: ", int)
             estoque_minimo = validar_atributo("Estoque Mínimo: ", int)
 
-            cadastrar_produto(conexao, cursor, nome, categoria_id, fornecedor_id, preco, estoque_atual, estoque_minimo)
+            cadastrar_produto(conexao, cursor, nome, categoria_id, fornecedor_id, preco, estoque_minimo)
             print("Produto Cadastrado!\n")
 
-        # MENU ALTERAR PRODUTO
+        # OPÇÃO ALTERAR PRODUTO
         elif opcao_produto == "2":
 
             print("\n---- ALTERAR PRODUTO ----")
@@ -105,8 +104,11 @@ def opcao_produtos():
                 elif opcao == "0":
                     opcao_produto = 0
                     break
+
+                else:
+                    print("Opção Inválida!")
         
-        # MENU EXCLUIR PRODUTO
+        # OPÇÃO EXCLUIR PRODUTO
         elif opcao_produto == "3":
 
             print("\n---- EXCLUIR PRODUTO ----")

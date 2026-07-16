@@ -49,6 +49,10 @@ def opcao_categorias():
                 elif opcao == "0":
                     opcao_categoria = 0
                     break
+
+                else:
+                  print("Opção Inválida!")
+
         
         # MENU EXCLUIR CATEGORIA
         elif opcao_categoria == "3":
