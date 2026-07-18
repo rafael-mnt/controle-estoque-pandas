@@ -11,7 +11,7 @@ def cadastrar_categoria(conexao, cursor, nome):
 def cadastrar_produto(conexao, cursor, nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo):
     query = """
             INSERT INTO produto (nome, categoria_id, fornecedor_id, preco, estoque_minimo)
-            VALUES (%s, %s, %s, %s, %s, %s);
+            VALUES (%s, %s, %s, %s, %s);
             """
 
     cursor.execute(query, (nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo))

@@ -5,7 +5,7 @@ def selecionar_titulos_tabela(tabela):
     if tabela == "categoria":
         return ["CATEGORIA"]
     if tabela == "produto":
-        return ["PRODUTO", "CATEGORIA", "FORNECEDOR", "PREÇO", "ESTOQUE ATUAL", "ESTOQUE MÍNIMO", "DATA DE CADASTRO"]
+        return ["PRODUTO", "CATEGORIA", "FORNECEDOR", "PREÇO", "ESTOQUE MÍNIMO", "ESTOQUE ATUAL", "DATA DE CADASTRO"]
     if tabela == "fornecedor":
         return ["FORNECEDOR", "CPF/CNPJ", "TELEFONE", "E-MAIL"]
     if tabela == "opcoes":
@@ -62,7 +62,7 @@ def inserir_dados_tabela(menu, colunas, larguras):
         print(dados)
 
 #Responsável por criar a tabela
-def criar_tabela(menu, tabela):
+def criar_tabela(cursor, menu, tabela):
 
     colunas = len(menu[0])
     titulos = selecionar_titulos_tabela(tabela)

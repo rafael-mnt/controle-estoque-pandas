@@ -24,9 +24,17 @@ Sistema de gerenciamento de estoque executado para terminal, desenvolvido em Pyt
 7. Execute `main.py`.
 
 ## 💡 Aprendizados
-Durante o desenvolvimento deste projeto, foram praticados conceitos como:
 
-- Manipulação de dados com Pandas
-- Estruturação de código em funções
-- Validação de códigos de entrada
-- Organização de lógica de sistema simples
+* Tratamento de strings
+* Modularização de código em Python
+* Operações CRUD em banco de dados relacional
+* Integração entre Python e PostgreSQL
+* Validação de entradas do usuário
+* Organização do projeto em múltiplos módulos
+* Manipulação de consultas SQL utilizando psycopg
+
+# 👨‍💻 Autor
+
+Rafael Monteiro
+
+> Projeto desenvolvido com foco no aprendizado de Python, PostgreSQL e boas práticas de desenvolvimento de software.

@@ -15,7 +15,7 @@ def opcao_categorias():
         categorias = criar_menu_tabela(cursor, tabela)
         menu_categorias = criar_menu_opcoes('menu_categorias')
         print("\n==== MENU DE CATEGORIAS ====")
-        criar_tabela(categorias, tabela)
+        criar_tabela(cursor, categorias, tabela)
         criar_tabela_opcoes(menu_categorias)
         opcao_categoria = input("Escolha: ")
 
@@ -35,7 +35,7 @@ def opcao_categorias():
             while True:
                 print("\n== INFORMAÇÕES DA CATEGORIA ==")
                 menu_item = criar_menu_id_unico(cursor, tabela, id)
-                criar_tabela(menu_item, tabela)
+                criar_tabela(cursor, menu_item, tabela)
                 opcoes = criar_menu_opcoes("opcoes_alterar_categoria")
                 criar_tabela_opcoes(opcoes)
                 opcao = input("Escolha: ")
@@ -61,7 +61,7 @@ def opcao_categorias():
             id = extrair_id("Nome da categoria", cursor, tabela)
             menu_item = criar_menu_id_unico(cursor, tabela, id)
             print("\n== INFORMAÇÕES DA CATEGORIA ==")
-            criar_tabela(menu_item, tabela)
+            criar_tabela(cursor, menu_item, tabela)
 
             if validar_exclusao(cursor, "categoria_id", id):
                 excluir_dado(conexao, cursor, tabela, id)

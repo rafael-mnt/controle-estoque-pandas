@@ -16,9 +16,9 @@ def criar_menu_tabela(cursor, tabela):
                 produto.nome, 
                 categoria.nome,
                 fornecedor.nome,
-                produto.preco, 
-                produto.estoque_atual, 
+                produto.preco,
                 produto.estoque_minimo,
+                produto.estoque_atual, 
                 produto.data_de_cadastro
                 FROM produto
                 INNER JOIN categoria
@@ -181,3 +181,10 @@ def criar_menu_opcoes(opcoes):
         [0, 'Voltar']
     ]
         return opcoes_alterar_fornecedor
+        
+    if opcoes == "opcoes_cpf_cnpj":
+        opcoes_cpf_cnpj = [
+        [1, 'CPF'],
+        [2, 'CNPJ']
+    ]
+        return opcoes_cpf_cnpj

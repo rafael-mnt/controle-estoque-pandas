@@ -16,7 +16,7 @@ def opcao_produtos():
         print("\n==== MENU DE PRODUTOS ====")
 
         produtos = criar_menu_tabela(cursor, tabela)
-        criar_tabela(produtos, tabela)
+        criar_tabela(cursor, produtos, tabela)
 
         menu_produtos = criar_menu_opcoes("menu_produtos")
         criar_tabela_opcoes(menu_produtos)
@@ -47,7 +47,7 @@ def opcao_produtos():
                 print("\n== INFORMAÇÕES DO PRODUTO ==")
 
                 menu_item = criar_menu_id_unico(cursor, tabela, id)
-                criar_tabela(menu_item, tabela)
+                criar_tabela(cursor, menu_item, tabela)
 
                 opcoes = criar_menu_opcoes("opcoes_alterar_produto")
                 criar_tabela_opcoes(opcoes)
@@ -66,7 +66,7 @@ def opcao_produtos():
                     
                     print('-- CATEGORIAS CADASTRADAS --')
                     categoria_consulta = criar_menu_consulta(cursor, 'categoria')
-                    criar_tabela(categoria_consulta, 'categoria')
+                    criar_tabela(cursor, categoria_consulta, 'categoria')
 
                     print("Informe a nova categoria!")
                     id_categoria_nova = extrair_id("Nome da Categoria", cursor, "categoria")
@@ -78,7 +78,7 @@ def opcao_produtos():
 
                     print('-- FORNECEDORES CADASTRADOS --')
                     fornecedor_consulta = criar_menu_consulta(cursor, 'fornecedor')
-                    criar_tabela(fornecedor_consulta, 'fornecedor')
+                    criar_tabela(cursor, fornecedor_consulta, 'fornecedor')
 
                     print("Informe o novo fornecedor!")
                     id_fornecedor_novo = extrair_id("Nome do Fornecedor", cursor, "fornecedor")
@@ -117,7 +117,7 @@ def opcao_produtos():
 
             print("\n== INFORMAÇÕES DO PRODUTO ==")
             menu_item = criar_menu_id_unico(cursor, tabela, id)
-            criar_tabela(menu_item, tabela)
+            criar_tabela(cursor, menu_item, tabela)
 
             excluir_dado(conexao, cursor, tabela, id)
 
