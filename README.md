@@ -1,5 +1,7 @@
 # 📦 Sistema de Gerenciamento de Estoque
-<img width="1402" height="575" alt="image" src="https://github.com/user-attachments/assets/2165851d-6016-4d46-811d-e1bedf6edb8e" />
+
+https://github.com/user-attachments/assets/65c062f4-6c21-4558-8545-5faf4d89fc4c
+
 
 ## 💻 Sobre
 Sistema de gerenciamento de estoque executado para terminal, desenvolvido em Python com integração ao PostgreSQL por meio da biblioteca psycopg. O projeto permite gerenciar categorias, produtos e fornecedores por meio de operações CRUD, com foco em organização de código e integração com banco de dados.
