@@ -105,7 +105,7 @@ def opcao_fornecedores():
                     alterar_dados(conexao, cursor, tabela, "email", id, email_novo)
 
                 elif opcao == "0":
-                    opcao_fornecedor = 0
+                    opcao_fornecedor = "0"
                     break
 
                 else:

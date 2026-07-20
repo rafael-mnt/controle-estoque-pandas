@@ -8,6 +8,8 @@ def selecionar_titulos_tabela(tabela):
         return ["PRODUTO", "CATEGORIA", "FORNECEDOR", "PREÇO", "ESTOQUE MÍNIMO", "ESTOQUE ATUAL", "DATA DE CADASTRO"]
     if tabela == "fornecedor":
         return ["FORNECEDOR", "CPF/CNPJ", "TELEFONE", "E-MAIL"]
+    if tabela == "estoque":
+        return ["DATA DE MOVIMENTAÇÃO", "PRODUTO", "EXECUÇÃO", "QUANTIDADE", "OBSERVAÇÃO"]
     if tabela == "opcoes":
         return ["# SELECIONE A OPÇÃO DESEJADA"]
 

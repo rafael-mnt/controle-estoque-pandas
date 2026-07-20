@@ -91,7 +91,8 @@ def conferir_duplicidade(cursor, tabela, coluna, resposta):
 # Responsável por conferir se há registro do input inserido no banco de dados
 def conferir_registro(cursor, tabela, resposta):
     query = f"""
-            SELECT id FROM {tabela} WHERE nome = %s;
+            SELECT id FROM {tabela} 
+            WHERE nome = %s;
             """
     
     cursor.execute(query, (resposta,))
@@ -106,3 +107,33 @@ def extrair_id(entrada, cursor, tabela):
         if id is not None:
             return id[0]
         print(f'# Aviso: Erro de Pesquisa!\n{entrada} {resposta} não consta em cadastro. Tente novamente!\n')
+
+def validar_quantidade(cursor, tipo, produto_id):
+    while True:
+        quantidade = validar_atributo("Quantidade: ", int)
+        estoque_atual = extrair_estoque_atual(cursor, produto_id)
+
+        if tipo == "Entrada":
+            if quantidade < 0:
+                print("# Aviso: Não é possível registrar números negativos!\n")
+            else:
+                return quantidade
+
+        if tipo == "Saída":
+            if quantidade < 0:
+                print("# Aviso: Não é possível registrar números negativos!\n")
+            else:
+                if (quantidade - estoque_atual) < 0:
+                    print("# Aviso: Estoque atual não pode ficar negativo!\nRegistre uma nova quantidade.\n")
+                else:
+                    return quantidade
+
+def extrair_estoque_atual(cursor, produto_id):
+    query = """
+            SELECT estoque_atual FROM produto
+            WHERE id = %s
+            """
+    
+    cursor.execute(query, (produto_id,))
+    estoque_atual = cursor.fetchone()
+    return estoque_atual[0]

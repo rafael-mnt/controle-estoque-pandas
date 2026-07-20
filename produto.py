@@ -102,7 +102,7 @@ def opcao_produtos():
                     alterar_dados(conexao, cursor, tabela, "estoque_minimo", id, estoque_novo)
 
                 elif opcao == "0":
-                    opcao_produto = 0
+                    opcao_produto = "0"
                     break
 
                 else:

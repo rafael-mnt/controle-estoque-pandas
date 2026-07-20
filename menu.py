@@ -42,6 +42,22 @@ def criar_menu_tabela(cursor, tabela):
         
         cursor.execute(query)
         return cursor.fetchall()
+    
+    if tabela == "estoque":
+        query = """
+                SELECT
+                estoque.data_movimentacao,
+                produto.nome,
+                estoque.tipo,
+                estoque.quantidade,
+                estoque.observacao
+                FROM estoque
+                INNER JOIN produto
+                ON produto_id = produto.id;
+                """
+        
+        cursor.execute(query)
+        return cursor.fetchall()
 
 # Responsável por pegar dados da primary key selecinada do banco de dados
 def criar_menu_id_unico(cursor, tabela, id):
@@ -123,6 +139,7 @@ def criar_menu_opcoes(opcoes):
         [1, 'Categorias'],
         [2, 'Produtos'],
         [3, 'Fornecedores'],
+        [4, 'Estoque'],
         [0, 'Sair do Programa']
     ]
         return opcoes_menu_principal
@@ -153,6 +170,14 @@ def criar_menu_opcoes(opcoes):
         [0, 'Voltar']
     ]
         return opcoes_menu_fornecedores
+    
+    if opcoes == "menu_estoque":
+        opcoes_menu_estoque = [
+        [1, 'Registrar Entrada'],
+        [2, 'Registrar Saída'],
+        [0, 'Voltar']
+    ]
+        return opcoes_menu_estoque
     
     if opcoes == "opcoes_alterar_categoria":
         opcoes_alterar_categoria = [

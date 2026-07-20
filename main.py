@@ -2,6 +2,7 @@ from database import conectar
 from categoria import opcao_categorias
 from produto import opcao_produtos
 from fornecedor import opcao_fornecedores
+from estoque import opcao_estoque
 from menu import criar_menu_opcoes
 from table import criar_tabela_opcoes
 
@@ -26,6 +27,10 @@ while True:
     # MENU FORNECEDOR
     elif opcao_principal == "3":
         opcao_fornecedores()
+
+    # MENU ESTOQUE
+    elif opcao_principal == "4":
+        opcao_estoque()
         
     # SAIR DO SISTEMA
     elif opcao_principal == "0":

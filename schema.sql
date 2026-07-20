@@ -25,7 +25,7 @@ CREATE TABLE produto (
 	FOREIGN KEY (fornecedor_id) REFERENCES fornecedor(id)
 );
 
-CREATE TABLE movimentacao (
+CREATE TABLE estoque (
 	id SERIAL PRIMARY KEY,
 	produto_id INTEGER NOT NULL,
 	tipo VARCHAR(10) NOT NULL CHECK (tipo in ('Entrada', 'Saída')),

@@ -47,7 +47,7 @@ def opcao_categorias():
                     alterar_dados(conexao, cursor, tabela, "nome", id, nome_novo)
 
                 elif opcao == "0":
-                    opcao_categoria = 0
+                    opcao_categoria = "0"
                     break
 
                 else:
