@@ -24,7 +24,6 @@ def opcao_categorias():
             print("\n---- CADASTRAR CATEGORIA ----")
             nome = validar_duplicidade("Nome da Categoria", cursor, tabela, "nome").upper()
             cadastrar_categoria(conexao, cursor, nome)
-            print("# - Categoria Cadastrada!\n")
 
         # MENU ALTERAR CATEGORIA
         elif opcao_categoria == "2":

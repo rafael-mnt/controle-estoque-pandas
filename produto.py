@@ -33,7 +33,6 @@ def opcao_produtos():
             estoque_minimo = validar_atributo("Estoque Mínimo: ", int)
 
             cadastrar_produto(conexao, cursor, nome, categoria_id, fornecedor_id, preco, estoque_minimo)
-            print("Produto Cadastrado!\n")
 
         # OPÇÃO ALTERAR PRODUTO
         elif opcao_produto == "2":

@@ -6,7 +6,7 @@ def cadastrar_categoria(conexao, cursor, nome):
 
     cursor.execute(query,(nome,))
     conexao.commit()
-    print("- Categoria cadastrada com sucesso! -")
+    print("- Categoria cadastrada com sucesso! -\n")
     
 def cadastrar_produto(conexao, cursor, nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo):
     query = """
@@ -16,7 +16,7 @@ def cadastrar_produto(conexao, cursor, nome_produto, nome_categoria, nome_fornec
 
     cursor.execute(query, (nome_produto, nome_categoria, nome_fornecedor, preco, estoque_minimo))
     conexao.commit()
-    print("- Produto cadastrado com sucesso! -")
+    print("- Produto cadastrado com sucesso! -\n")
 
 def cadastrar_fornecedor(conexao, cursor, nome_fornecedor, cpf_cnpj, telefone, email):
     query = """
@@ -26,7 +26,7 @@ def cadastrar_fornecedor(conexao, cursor, nome_fornecedor, cpf_cnpj, telefone, e
     
     cursor.execute(query, (nome_fornecedor, cpf_cnpj, telefone, email))
     conexao.commit()
-    print("- Fornecedor cadastrado com sucesso! -")
+    print("- Fornecedor cadastrado com sucesso! -\n")
 
 # Responsável por alterar os dados solcitados do usuário pós confirmação do mesmo
 def alterar_dados(conexao, cursor, tabela, coluna, id, item_novo):
@@ -37,9 +37,9 @@ def alterar_dados(conexao, cursor, tabela, coluna, id, item_novo):
     
         cursor.execute(query, (item_novo, id))
         conexao.commit()
-        print("- Alteração realizada com sucesso! -")
+        print("- Alteração realizada com sucesso! -\n")
     else:
-        print("# Aviso: Alteração de produto cancelada!")
+        print("# Aviso: Alteração de produto cancelada!\n")
     
 # Responsável por confirmar alteração solicitada pelo usuário
 def confirmar_alteracao():
@@ -60,9 +60,9 @@ def excluir_dado(conexao, cursor, tabela, id):
     
         cursor.execute(query, (id,))
         conexao.commit()
-        print("- Exclusão realizada com sucesso! -")
+        print("- Exclusão realizada com sucesso! -\n")
     else:
-        print("# Aviso: Alteração de produto cancelada!")
+        print("# Aviso: Alteração de produto cancelada!\n")
 
 def confirmar_exclusao():
     while True:

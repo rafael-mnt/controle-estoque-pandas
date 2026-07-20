@@ -68,6 +68,17 @@ def validar_email(entrada):
             return email
         print("# Aviso: E-mail inválido! \nPor favor, insira um e-mail existente.")
 
+# Responsável por conferir se há registro do input inserido no banco de dados
+def conferir_registro(cursor, tabela, resposta):
+    query = f"""
+            SELECT id FROM {tabela} 
+            WHERE nome = %s;
+            """
+    
+    cursor.execute(query, (resposta,))
+    resultado = cursor.fetchone()
+    return resultado
+
 # Responsável por conferir registros na tabela produto pelo id fornecido 
 def conferir_registros_id(cursor, coluna):
     query = f"""
@@ -88,17 +99,6 @@ def conferir_duplicidade(cursor, tabela, coluna, resposta):
     resultado = cursor.fetchone()
     return resultado is None
 
-# Responsável por conferir se há registro do input inserido no banco de dados
-def conferir_registro(cursor, tabela, resposta):
-    query = f"""
-            SELECT id FROM {tabela} 
-            WHERE nome = %s;
-            """
-    
-    cursor.execute(query, (resposta,))
-    resultado = cursor.fetchone()
-    return resultado
-
 # Responsável por extrair o primary key da linha do dado fornecido
 def extrair_id(entrada, cursor, tabela):
     while True:
@@ -108,6 +108,7 @@ def extrair_id(entrada, cursor, tabela):
             return id[0]
         print(f'# Aviso: Erro de Pesquisa!\n{entrada} {resposta} não consta em cadastro. Tente novamente!\n')
 
+# Responsável por validar uma quantidade para entrada e saída de estoque, impedindo ser negativo e estoque atual abaixo de zero
 def validar_quantidade(cursor, tipo, produto_id):
     while True:
         quantidade = validar_atributo("Quantidade: ", int)
@@ -128,6 +129,7 @@ def validar_quantidade(cursor, tipo, produto_id):
                 else:
                     return quantidade
 
+#Responsável por extrair o estoque atual do produto selecionado
 def extrair_estoque_atual(cursor, produto_id):
     query = """
             SELECT estoque_atual FROM produto

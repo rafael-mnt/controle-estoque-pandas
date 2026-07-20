@@ -26,8 +26,8 @@ def opcao_fornecedores():
 
             while True:
                 print("Escolha registrar CPF ou CNPJ")
-                opcoes = criar_menu_opcoes("opcoes_criar_cpf_cnpj")
-                criar_menu_opcoes(opcoes)
+                opcoes = criar_menu_opcoes("opcoes_cpf_cnpj")
+                criar_tabela_opcoes(opcoes)
                 opcao = input("Escolha: ")
 
                 if opcao == "1":
@@ -44,7 +44,6 @@ def opcao_fornecedores():
             telefone = validar_telefone("Telefone (apenas números com DDD)")
             email = validar_email("E-mail: ").upper()
             cadastrar_fornecedor(conexao, cursor, nome, cpf_cnpj, telefone, email)
-            print("Fornecedor Cadastrado!\n")
 
         # MENU ALTERAR FORNECEDOR
         elif opcao_fornecedor == "2":
@@ -69,14 +68,11 @@ def opcao_fornecedores():
                 # Alterar CPF / CNPJ fornecedor
                 elif opcao == "2":
                     print("-- Alterar CPF/CNPJ --")
-                    opcoes = criar_menu_opcoes("opcoes_cpf_cnpj")
-                    criar_tabela_opcoes(opcoes)
-                    opcao = input("Escolha: ")
 
                     while True:
                         print("Escolha alterar dado como CPF ou CNPJ")
                         opcoes = criar_menu_opcoes("opcoes_cpf_cnpj")
-                        criar_menu_opcoes(opcoes)
+                        criar_tabela_opcoes(opcoes)
                         opcao = input("Escolha: ")
 
                         if opcao == "1":
