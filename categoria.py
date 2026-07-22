@@ -1,7 +1,7 @@
 from database import conectar
 from menu import criar_menu_tabela, criar_menu_opcoes, criar_menu_id_unico
 from table import criar_tabela, criar_tabela_opcoes
-from functions import validar_duplicidade, extrair_id, validar_exclusao
+from functions import validar_duplicidade, extrair_id, validar_nulo, validar_exclusao
 from crud import cadastrar_categoria, alterar_dados, excluir_dado
 
 conexao = conectar()
@@ -12,6 +12,7 @@ def opcao_categorias():
     while True:
                 
         tabela = "categoria"
+        print(validar_nulo(cursor, tabela ))
         categorias = criar_menu_tabela(cursor, tabela)
         menu_categorias = criar_menu_opcoes('menu_categorias')
         print("\n==== MENU DE CATEGORIAS ====")
@@ -27,45 +28,53 @@ def opcao_categorias():
 
         # MENU ALTERAR CATEGORIA
         elif opcao_categoria == "2":
-            print("\n---- ALTERAR CATEGORIA ----")
-            print("Insira o nome da categoria:")
-            id = extrair_id("Nome da categoria", cursor, tabela)
 
-            while True:
-                print("\n== INFORMAÇÕES DA CATEGORIA ==")
-                menu_item = criar_menu_id_unico(cursor, tabela, id)
-                criar_tabela(cursor, menu_item, tabela)
-                opcoes = criar_menu_opcoes("opcoes_alterar_categoria")
-                criar_tabela_opcoes(opcoes)
-                opcao = input("Escolha: ")
+            if validar_nulo(cursor, tabela):
+                print("# Aviso: Não é possível alterar tabela sem dados!\nCadastre uma categoria para realizar essa ação.")
+            else:
+                print("\n---- ALTERAR CATEGORIA ----")
+                print("Insira o nome da categoria:")
+                id = extrair_id("Nome da categoria", cursor, tabela)
 
-                # Alterar nome categoria
-                if opcao == "1":
-                    print("Informe o novo nome da categoria!")
-                    nome_novo = validar_duplicidade("Nome da Categoria", cursor, tabela, "nome").upper()
-                    alterar_dados(conexao, cursor, tabela, "nome", id, nome_novo)
+                while True:
+                    print("\n== INFORMAÇÕES DA CATEGORIA ==")
+                    menu_item = criar_menu_id_unico(cursor, tabela, id)
+                    criar_tabela(cursor, menu_item, tabela)
+                    opcoes = criar_menu_opcoes("opcoes_alterar_categoria")
+                    criar_tabela_opcoes(opcoes)
+                    opcao = input("Escolha: ")
 
-                elif opcao == "0":
-                    opcao_categoria = "0"
-                    break
+                    # Alterar nome categoria
+                    if opcao == "1":
+                        print("Informe o novo nome da categoria!")
+                        nome_novo = validar_duplicidade("Nome da Categoria", cursor, tabela, "nome").upper()
+                        alterar_dados(conexao, cursor, tabela, "nome", id, nome_novo)
 
-                else:
-                  print("Opção Inválida!")
+                    elif opcao == "0":
+                        opcao_categoria = "0"
+                        break
+
+                    else:
+                        print("Opção Inválida!")
 
         
         # MENU EXCLUIR CATEGORIA
         elif opcao_categoria == "3":
-            print("\n---- EXCLUIR CATEGORIA ----")
-            print("Insira o nome da categoria:")
-            id = extrair_id("Nome da categoria", cursor, tabela)
-            menu_item = criar_menu_id_unico(cursor, tabela, id)
-            print("\n== INFORMAÇÕES DA CATEGORIA ==")
-            criar_tabela(cursor, menu_item, tabela)
 
-            if validar_exclusao(cursor, "categoria_id", id):
-                excluir_dado(conexao, cursor, tabela, id)
+            if validar_nulo(cursor, tabela):
+                print("# Aviso: Não é possível excluir tabela sem dados!\nCadastre uma categoria para realizar essa ação.")
             else:
-                print("# Aviso: Categoria cadastrada na tabela produto!\nAltere a categoria no produto cadastrado para excluí-la.")
+                print("\n---- EXCLUIR CATEGORIA ----")
+                print("Insira o nome da categoria:")
+                id = extrair_id("Nome da categoria", cursor, tabela)
+                menu_item = criar_menu_id_unico(cursor, tabela, id)
+                print("\n== INFORMAÇÕES DA CATEGORIA ==")
+                criar_tabela(cursor, menu_item, tabela)
+
+                if validar_exclusao(cursor, "categoria_id", id):
+                    excluir_dado(conexao, cursor, tabela, id)
+                else:
+                    print("# Aviso: Categoria cadastrada na tabela produto!\nAltere a categoria no produto cadastrado para excluí-la.")
 
         elif opcao_categoria == "0":
             return

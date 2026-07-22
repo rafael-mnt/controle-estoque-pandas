@@ -139,3 +139,12 @@ def extrair_estoque_atual(cursor, produto_id):
     cursor.execute(query, (produto_id,))
     estoque_atual = cursor.fetchone()
     return estoque_atual[0]
+
+def validar_nulo(cursor, tabela):
+    query = f"""
+            SELECT * FROM {tabela}
+            """
+    
+    cursor.execute(query)
+    nulo = cursor.fetchone()
+    return nulo is None
