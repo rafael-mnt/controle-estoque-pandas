@@ -1,13 +1,15 @@
-from database import conectar
-from menu import criar_menu_tabela, criar_menu_opcoes, criar_menu_id_unico, criar_menu_consulta
+from crud import alterar_dados, cadastrar_produto, excluir_dado
+from functions import extrair_id, validar_atributo, validar_duplicidade, validar_nulo
+from menu import (
+    criar_menu_consulta,
+    criar_menu_id_unico,
+    criar_menu_opcoes,
+    criar_menu_tabela,
+)
 from table import criar_tabela, criar_tabela_opcoes
-from functions import validar_duplicidade, extrair_id, validar_atributo, validar_nulo
-from crud import cadastrar_produto, alterar_dados, excluir_dado
 
-conexao = conectar()
-cursor = conexao.cursor()
 
-def opcao_produtos():
+def opcao_produtos(conexao, cursor):
 
     while True:
 

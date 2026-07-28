@@ -1,13 +1,19 @@
-from database import conectar
-from menu import criar_menu_tabela, criar_menu_opcoes, criar_menu_id_unico
+from crud import alterar_dados, cadastrar_fornecedor, excluir_dado
+from functions import (
+    extrair_id,
+    validar_cnpj,
+    validar_cpf,
+    validar_duplicidade,
+    validar_email,
+    validar_exclusao,
+    validar_nulo,
+    validar_telefone,
+)
+from menu import criar_menu_id_unico, criar_menu_opcoes, criar_menu_tabela
 from table import criar_tabela, criar_tabela_opcoes
-from functions import validar_duplicidade, extrair_id, validar_nulo, validar_exclusao, validar_email, validar_cpf, validar_cnpj, validar_telefone
-from crud import cadastrar_fornecedor, alterar_dados, excluir_dado
 
-conexao = conectar()
-cursor = conexao.cursor()
 
-def opcao_fornecedores():
+def opcao_fornecedores(conexao, cursor):
     
     while True:
 

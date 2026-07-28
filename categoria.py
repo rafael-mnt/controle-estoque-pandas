@@ -1,13 +1,10 @@
-from database import conectar
-from menu import criar_menu_tabela, criar_menu_opcoes, criar_menu_id_unico
+from crud import alterar_dados, cadastrar_categoria, excluir_dado
+from functions import extrair_id, validar_duplicidade, validar_exclusao, validar_nulo
+from menu import criar_menu_id_unico, criar_menu_opcoes, criar_menu_tabela
 from table import criar_tabela, criar_tabela_opcoes
-from functions import validar_duplicidade, extrair_id, validar_nulo, validar_exclusao
-from crud import cadastrar_categoria, alterar_dados, excluir_dado
 
-conexao = conectar()
-cursor = conexao.cursor()
 
-def opcao_categorias():
+def opcao_categorias(conexao, cursor):
 
     while True:
                 

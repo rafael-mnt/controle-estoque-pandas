@@ -1,13 +1,10 @@
-from database import conectar
-from menu import criar_menu_tabela, criar_menu_opcoes
-from table import criar_tabela, criar_tabela_opcoes
-from functions import extrair_id, validar_quantidade, validar_nulo
+from functions import extrair_id, validar_nulo, validar_quantidade
 from inventory import registrar_movimento
+from menu import criar_menu_opcoes, criar_menu_tabela
+from table import criar_tabela, criar_tabela_opcoes
 
-conexao = conectar()
-cursor = conexao.cursor()
 
-def opcao_estoque():
+def opcao_estoque(conexao, cursor):
 
     while True:
                 
