@@ -1,5 +1,6 @@
 import re
 
+
 # Responsável por validar um input não duplicado no banco de dados
 def validar_duplicidade(entrada, cursor, tabela, coluna):
     while True:
@@ -29,7 +30,7 @@ def validar_exclusao(cursor, coluna, id):
 def validar_cpf(entrada, cursor, tabela, coluna):
     while True:
         cpf = validar_duplicidade(entrada, cursor, tabela, coluna)
-        regex_cpf = r"^[0-9]{11,}$"
+        regex_cpf = r"^[0-9]{11}$"
         resultado = re.fullmatch(regex_cpf, cpf)
         if resultado:
             cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}"
@@ -40,7 +41,7 @@ def validar_cpf(entrada, cursor, tabela, coluna):
 def validar_cnpj(entrada, cursor, tabela, coluna):
     while True:
         cnpj = validar_duplicidade(entrada, cursor, tabela, coluna)
-        regex_cnpj = r"^[0-9]{14,}$"
+        regex_cnpj = r"^[0-9]{14}$"
         resultado = re.fullmatch(regex_cnpj, cnpj)
         if resultado:
             cnpj = f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:14]}"
