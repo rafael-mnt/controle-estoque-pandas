@@ -59,7 +59,6 @@ def criar_menu_tabela(cursor, tabela):
         cursor.execute(query)
         return cursor.fetchall()
 
-# Responsável por pegar dados da primary key selecinada do banco de dados
 def criar_menu_id_unico(cursor, tabela, id):
     if tabela == "categoria":
 
@@ -110,7 +109,6 @@ def criar_menu_id_unico(cursor, tabela, id):
         cursor.execute(query, (id,))
         return cursor.fetchall()
     
-# Responsável por pegar dados específicos do banco de dados para consultas
 def criar_menu_consulta(cursor, tabela_consulta):
     if tabela_consulta == 'categoria':
         query = """

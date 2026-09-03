@@ -1,5 +1,6 @@
 from functions import extrair_estoque_atual
 
+
 def registrar_movimento(conexao, cursor, produto_id, tipo, quantidade, observacao):
 
     estoque_atual = extrair_estoque_atual(cursor, produto_id)

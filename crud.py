@@ -28,7 +28,6 @@ def cadastrar_fornecedor(conexao, cursor, nome_fornecedor, cpf_cnpj, telefone, e
     conexao.commit()
     print("- Fornecedor cadastrado com sucesso! -\n")
 
-# Responsável por alterar os dados solcitados do usuário pós confirmação do mesmo
 def alterar_dados(conexao, cursor, tabela, coluna, id, item_novo):
     if confirmar_alteracao():
         query = f"""
@@ -41,7 +40,6 @@ def alterar_dados(conexao, cursor, tabela, coluna, id, item_novo):
     else:
         print("# Aviso: Alteração de produto cancelada!\n")
     
-# Responsável por confirmar alteração solicitada pelo usuário
 def confirmar_alteracao():
     while True:
         confirmacao = input("\nDeseja prosseguir com a alteração? S(Sim) / N(Não)\nConfirmação: ").lower()

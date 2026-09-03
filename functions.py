@@ -1,7 +1,6 @@
 import re
 
 
-# Responsável por validar um input não duplicado no banco de dados
 def validar_duplicidade(entrada, cursor, tabela, coluna):
     while True:
         resposta = input(f"{entrada}: ")
@@ -9,7 +8,6 @@ def validar_duplicidade(entrada, cursor, tabela, coluna):
             return resposta
         print(f'# Aviso: Duplicidade Inválida!\n{entrada} {resposta} já consta em cadastro. Tente novamente!')
 
-# Responsável por validar a formatação int ou float do input
 def validar_atributo(texto, atributo):
 
     while True:
@@ -18,7 +16,7 @@ def validar_atributo(texto, atributo):
         except ValueError:
             print(f"# Aviso: Erro de atributo!\nEntrada precisa ser do atributo: {atributo}. Tente novamente!")
 
-# Responsável por validar a exclusão de um dado
+
 def validar_exclusao(cursor, coluna, id):
     lista = conferir_registros_id(cursor, coluna)
     for item in lista:
@@ -26,7 +24,6 @@ def validar_exclusao(cursor, coluna, id):
             return False
     return True
 
-# Responsável por validar CPF sem duplicidade, com a quantidade certa de números e retornar o dado no formato certo
 def validar_cpf(entrada, cursor, tabela, coluna):
     while True:
         cpf = validar_duplicidade(entrada, cursor, tabela, coluna)
@@ -37,7 +34,6 @@ def validar_cpf(entrada, cursor, tabela, coluna):
             return cpf
         print("# Aviso: CPF inválido! \nPor favor, insira um CPF existente. Apenas números com 11 caracteres")
 
-# Responsável por validar CNPJ sem duplicidade, com a quantidade certa de números e retornar o dado no formato certo
 def validar_cnpj(entrada, cursor, tabela, coluna):
     while True:
         cnpj = validar_duplicidade(entrada, cursor, tabela, coluna)
@@ -48,7 +44,6 @@ def validar_cnpj(entrada, cursor, tabela, coluna):
             return cnpj
         print("# Aviso: CNPJ inválido! \nPor favor, insira um CNPJ existente. Apenas números com 14 caracteres.")
 
-# Responsável por validar número de telefone, com a quantidade certa de números e retornar o dado no formato certo
 def validar_telefone(entrada):
     while True:
         telefone = input(f"{entrada}: ")
@@ -59,7 +54,6 @@ def validar_telefone(entrada):
             return telefone
         print("# Aviso: Telefone inválido! \nPor favor, insira um telefone existente. Apenas números com no mínimo 10 caracteres, incluindo DDD")
 
-# Responsável por validar endereço de e-mail, com a quantidade certa de números e retornar o dado no formato certo
 def validar_email(entrada):
     while True:
         email = input(f"{entrada}: ")
@@ -69,7 +63,6 @@ def validar_email(entrada):
             return email
         print("# Aviso: E-mail inválido! \nPor favor, insira um e-mail existente.")
 
-# Responsável por conferir se há registro do input inserido no banco de dados
 def conferir_registro(cursor, tabela, resposta):
     query = f"""
             SELECT id FROM {tabela} 
@@ -80,7 +73,6 @@ def conferir_registro(cursor, tabela, resposta):
     resultado = cursor.fetchone()
     return resultado
 
-# Responsável por conferir registros na tabela produto pelo id fornecido 
 def conferir_registros_id(cursor, coluna):
     query = f"""
             SELECT {coluna} FROM produto;
@@ -89,7 +81,6 @@ def conferir_registros_id(cursor, coluna):
     cursor.execute(query)
     return cursor.fetchall()
 
-# Responsável por conferir se há duplicidade do input inserido no banco de dados 
 def conferir_duplicidade(cursor, tabela, coluna, resposta):
     query = f"""
             SELECT * FROM {tabela}
@@ -100,7 +91,6 @@ def conferir_duplicidade(cursor, tabela, coluna, resposta):
     resultado = cursor.fetchone()
     return resultado is None
 
-# Responsável por extrair o primary key da linha do dado fornecido
 def extrair_id(entrada, cursor, tabela):
     while True:
         resposta = input(f"{entrada}: ").upper()
@@ -109,7 +99,6 @@ def extrair_id(entrada, cursor, tabela):
             return id[0]
         print(f'# Aviso: Erro de Pesquisa!\n{entrada} {resposta} não consta em cadastro. Tente novamente!\n')
 
-# Responsável por validar uma quantidade para entrada e saída de estoque, impedindo ser negativo e estoque atual abaixo de zero
 def validar_quantidade(cursor, tipo, produto_id):
     while True:
         quantidade = validar_atributo("Quantidade: ", int)
@@ -130,7 +119,6 @@ def validar_quantidade(cursor, tipo, produto_id):
                 else:
                     return quantidade
 
-#Responsável por extrair o estoque atual do produto selecionado
 def extrair_estoque_atual(cursor, produto_id):
     query = """
             SELECT estoque_atual FROM produto

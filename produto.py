@@ -24,7 +24,6 @@ def opcao_produtos(conexao, cursor):
         criar_tabela_opcoes(menu_produtos)
         opcao_produto = input("Escolha: ")
 
-        # OPÇÃO CADASTRAR PRODUTO
         if opcao_produto == "1":
 
             if validar_nulo(cursor, 'categoria') and validar_nulo(cursor, 'fornecedor'):
@@ -43,7 +42,6 @@ def opcao_produtos(conexao, cursor):
 
                 cadastrar_produto(conexao, cursor, nome, categoria_id, fornecedor_id, preco, estoque_minimo)
 
-        # OPÇÃO ALTERAR PRODUTO
         elif opcao_produto == "2":
 
             if validar_nulo(cursor, tabela):
@@ -64,7 +62,6 @@ def opcao_produtos(conexao, cursor):
                     criar_tabela_opcoes(opcoes)
                     opcao = input("Escolha: ")
 
-                    # Alterar nome produto
                     if opcao == "1":
 
                         print("Informe o novo nome do produto!")
@@ -72,7 +69,6 @@ def opcao_produtos(conexao, cursor):
 
                         alterar_dados(conexao, cursor, tabela, "nome", id, nome_novo)
 
-                    # Alterar categoria
                     elif opcao == "2":
                         
                         print('-- CATEGORIAS CADASTRADAS --')
@@ -84,7 +80,6 @@ def opcao_produtos(conexao, cursor):
 
                         alterar_dados(conexao, cursor, tabela, "categoria_id", id, id_categoria_nova)
                         
-                    # Alterar fornecedor
                     elif opcao == "3":
 
                         print('-- FORNECEDORES CADASTRADOS --')
@@ -95,8 +90,7 @@ def opcao_produtos(conexao, cursor):
                         id_fornecedor_novo = extrair_id("Nome do Fornecedor", cursor, "fornecedor")
 
                         alterar_dados(conexao, cursor, tabela, "fornecedor_id", id, id_fornecedor_novo)
-
-                    # Alterar preço
+ 
                     elif opcao == "4":
 
                         print("Informe o novo preço do produto!")
@@ -104,7 +98,6 @@ def opcao_produtos(conexao, cursor):
 
                         alterar_dados(conexao, cursor, tabela, "preco", id, preco_novo)
 
-                    # Alterar estoque mínimo
                     elif opcao == "5":
 
                         print("Informe o novo estoque mínimo do produto!")
@@ -119,7 +112,6 @@ def opcao_produtos(conexao, cursor):
                     else:
                         print("Opção Inválida!")
         
-        # OPÇÃO EXCLUIR PRODUTO
         elif opcao_produto == "3":
 
             if validar_nulo(cursor, tabela):

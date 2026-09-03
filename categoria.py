@@ -17,13 +17,11 @@ def opcao_categorias(conexao, cursor):
         criar_tabela_opcoes(menu_categorias)
         opcao_categoria = input("Escolha: ")
 
-        # MENU CADASTRAR CATEGORIA
         if opcao_categoria == "1":
             print("\n---- CADASTRAR CATEGORIA ----")
             nome = validar_duplicidade("Nome da Categoria", cursor, tabela, "nome").upper()
             cadastrar_categoria(conexao, cursor, nome)
 
-        # MENU ALTERAR CATEGORIA
         elif opcao_categoria == "2":
 
             if validar_nulo(cursor, tabela):
@@ -41,7 +39,6 @@ def opcao_categorias(conexao, cursor):
                     criar_tabela_opcoes(opcoes)
                     opcao = input("Escolha: ")
 
-                    # Alterar nome categoria
                     if opcao == "1":
                         print("Informe o novo nome da categoria!")
                         nome_novo = validar_duplicidade("Nome da Categoria", cursor, tabela, "nome").upper()
@@ -55,7 +52,6 @@ def opcao_categorias(conexao, cursor):
                         print("Opção Inválida!")
 
         
-        # MENU EXCLUIR CATEGORIA
         elif opcao_categoria == "3":
 
             if validar_nulo(cursor, tabela):

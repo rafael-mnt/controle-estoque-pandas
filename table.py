@@ -1,6 +1,6 @@
 import datetime
 
-# Responsável por selecionar os títulos da tabela
+
 def selecionar_titulos_tabela(tabela):
     if tabela == "categoria":
         return ["CATEGORIA"]
@@ -13,7 +13,6 @@ def selecionar_titulos_tabela(tabela):
     if tabela == "opcoes":
         return ["# SELECIONE A OPÇÃO DESEJADA"]
 
-# Responsável por calcular largura da tabela
 def calcular_largura_tabela(menu, colunas, titulos):
     larguras = []
 
@@ -30,7 +29,6 @@ def calcular_largura_tabela(menu, colunas, titulos):
 
     return larguras
 
-#Responsável por criar as linhas da tabela
 def criar_linha_tabela(larguras, colunas):
     linha = "+"
 
@@ -39,7 +37,6 @@ def criar_linha_tabela(larguras, colunas):
 
     return linha
 
-#Responsável por inserir os títulos da tabela
 def inserir_titulos_tabela(titulos, colunas, larguras):
     dados = "|"
 
@@ -48,7 +45,6 @@ def inserir_titulos_tabela(titulos, colunas, larguras):
 
     print(dados)
 
-#Responsável por inserir os dados da tabela
 def inserir_dados_tabela(menu, colunas, larguras):
 
     if len(menu) == 0:
@@ -66,7 +62,6 @@ def inserir_dados_tabela(menu, colunas, larguras):
 
         print(dados)
 
-# Responsável por calcular largura da tabela de opções
 def calcular_largura_tabela_opcoes(menu, colunas):
     larguras = []
 
@@ -79,7 +74,6 @@ def calcular_largura_tabela_opcoes(menu, colunas):
 
     return larguras
 
-# Responsável por criar as linhas da tabela de opções
 def criar_linha_tabela_opcoes(larguras, colunas):
     linha = "="
 
@@ -88,7 +82,6 @@ def criar_linha_tabela_opcoes(larguras, colunas):
 
     return linha
 
-#Responsável por inserir os dados da tabela de opcoes
 def inserir_dados_tabela_opcoes(menu, colunas, larguras):
 
     for produto in menu:
@@ -102,7 +95,6 @@ def inserir_dados_tabela_opcoes(menu, colunas, larguras):
 
         print(dados)
 
-#Responsável por criar colunas da tabela
 def criar_coluna_tabela(cursor, tabela):
     query = """
             SELECT count(column_name) AS numero_de_colunas
@@ -115,7 +107,6 @@ def criar_coluna_tabela(cursor, tabela):
     colunas = colunas[0] - 1
     return colunas
 
-# Responsável por criar uma tabela para as opções do menu
 def criar_tabela_opcoes(menu):
     colunas = 2
     titulos = selecionar_titulos_tabela("opcoes")
@@ -124,7 +115,6 @@ def criar_tabela_opcoes(menu):
     print(titulos[0])
     inserir_dados_tabela_opcoes(menu, 2, larguras)
 
-#Responsável por criar a tabela
 def criar_tabela(cursor, menu, tabela):
 
     colunas = criar_coluna_tabela(cursor, tabela)

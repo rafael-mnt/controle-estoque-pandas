@@ -17,23 +17,18 @@ while True:
     criar_tabela_opcoes(menu_principal)
     opcao_principal = input("Escolha: ")
 
-    # MENU CATEGORIA
     if opcao_principal == "1":
         opcao_categorias(conexao, cursor)
 
-    # MENU PRODUTO
     elif opcao_principal == "2":
         opcao_produtos(conexao, cursor)
 
-    # MENU FORNECEDOR
     elif opcao_principal == "3":
         opcao_fornecedores(conexao, cursor)
 
-    # MENU ESTOQUE
     elif opcao_principal == "4":
         opcao_estoque(conexao, cursor)
         
-    # SAIR DO SISTEMA
     elif opcao_principal == "0":
         print("Sistema Encerrado!")
         conexao.close()

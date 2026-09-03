@@ -25,7 +25,6 @@ def opcao_fornecedores(conexao, cursor):
         criar_tabela_opcoes(menu_fornecedores)
         opcao_fornecedor = input("Escolha: ")
 
-        # MENU CADASTRAR FORNECEDOR
         if opcao_fornecedor == "1":
             print("\n---- CADASTRAR FORNECEDOR ----")
             nome = validar_duplicidade("Nome do Fornecedor", cursor, tabela, "nome").upper()
@@ -51,7 +50,6 @@ def opcao_fornecedores(conexao, cursor):
             email = validar_email("E-mail: ").upper()
             cadastrar_fornecedor(conexao, cursor, nome, cpf_cnpj, telefone, email)
 
-        # MENU ALTERAR FORNECEDOR
         elif opcao_fornecedor == "2":
 
             if validar_nulo(cursor, tabela):
@@ -69,13 +67,11 @@ def opcao_fornecedores(conexao, cursor):
                     criar_tabela_opcoes(opcoes)
                     opcao = input("Escolha: ")
 
-                    # Alterar nome fornecedor
                     if opcao == "1":
                         print("Informe o novo nome do fornecedor")
                         nome_novo = validar_duplicidade("Nome do Fornecedor", cursor, tabela, "nome").upper()
                         alterar_dados(conexao, cursor, tabela, "nome", id, nome_novo)
 
-                    # Alterar CPF / CNPJ fornecedor
                     elif opcao == "2":
                         print("-- Alterar CPF/CNPJ --")
 
@@ -98,16 +94,14 @@ def opcao_fornecedores(conexao, cursor):
 
                         alterar_dados(conexao, cursor, tabela, "cpf_cnpj", id, cpf_cnpj_novo)
 
-                    # Alterar telefone fornecedor
                     elif opcao == "3":
                         print("Informe o novo telefone do fornecedor")
                         telefone_novo = validar_duplicidade("Telefone do Fornecedor", cursor, tabela, "telefone")
                         alterar_dados(conexao, cursor, tabela, "telefone", id,telefone_novo)
 
-                    # Alterar e-mail fornecedor
                     elif opcao == "4":
                         print("Informe o novo E-mail do fornecedor")
-                        email_novo = validar_email("E-mail do Fornecedor", cursor, tabela, "email").upper()
+                        email_novo = validar_email("E-mail do Fornecedor").upper()
                         alterar_dados(conexao, cursor, tabela, "email", id, email_novo)
 
                     elif opcao == "0":
@@ -117,7 +111,6 @@ def opcao_fornecedores(conexao, cursor):
                     else:
                         print("Opção Inválida!")
         
-        # MENU EXCLUIR FORNECEDOR
         elif opcao_fornecedor == "3":
             
             if validar_nulo(cursor, tabela):
